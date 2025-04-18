@@ -84,8 +84,6 @@ struct dicom_level {
 
   GPtrArray *files;
   guint *file_index;
-
-  GMutex lock;
 };
 
 struct associated {
@@ -412,7 +410,6 @@ static void level_destroy(struct dicom_level *l) {
   if (l->file_index) {
     g_free(l->file_index);
   }
-  g_mutex_clear(&l->lock);
   g_free(l);
 }
 OPENSLIDE_DEFINE_G_DESTROY_NOTIFY_WRAPPER(level_destroy)
@@ -851,7 +848,6 @@ static bool add_level(openslide_t *osr,
                           !!(new_l->base.w % new_l->base.tile_w);
     new_l->tiles_down = (new_l->base.h / new_l->base.tile_h) +
                         !!(new_l->base.h % new_l->base.tile_h);
-    g_mutex_init(&l->lock);
 
     // read PixelSpacing to expose as the mpp settings, if present
     DcmDataSet *shared_functional_group;
