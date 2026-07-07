@@ -26,7 +26,7 @@ jobs:
     runs-on: ubuntu-slim
     steps:
       - name: Check out repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
         with:
           token: ${{ secrets.OPENSLIDE_BOT_TOKEN }}
       - name: Get bot username
@@ -44,7 +44,7 @@ jobs:
           modified=$(echo $modified | sed -e 's/ /, /g')
           echo "modified=$modified" >> $GITHUB_OUTPUT
       - name: Post updated wraps
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7
         with:
           token: ${{ secrets.OPENSLIDE_BOT_TOKEN }}
           author: "${{ env.GIT_NAME }} <${{ env.GIT_EMAIL }}>"

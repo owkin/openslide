@@ -19,9 +19,9 @@ jobs:
     runs-on: ubuntu-slim
     steps:
       - name: Check out repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: 3.14
       - name: Install dependencies
@@ -30,7 +30,7 @@ jobs:
           sudo apt-get -y install libfuse3-dev
           python -m pip install pre-commit
       - name: Cache pre-commit environments
-        uses: actions/cache@v5
+        uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
         with:
           key: pre-commit|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
           path: ~/.cache/pre-commit
@@ -63,7 +63,7 @@ jobs:
             clang doxygen llvm dnf-plugins-core
         dnf debuginfo-install -y cairo fontconfig glib2
     - name: Check out repo
-      uses: actions/checkout@v6
+      uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
     - name: Build
       run: |
         if ! meson setup builddir --fatal-meson-warnings --werror \
@@ -86,7 +86,7 @@ jobs:
         mv doc/html ../artifacts/docs/${docroot}
         echo "doc-base=${docroot}" >> $GITHUB_OUTPUT
     - name: Archive docs
-      uses: actions/upload-artifact@v7
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
       with:
         name: ${{ steps.docs.outputs.doc-base }}
         path: artifacts/docs
@@ -100,13 +100,13 @@ jobs:
         mv builddir/meson-dist/*.tar.xz "artifacts/dist/$dist"
         echo "dist-base=$dist" >> $GITHUB_OUTPUT
     - name: Archive dist
-      uses: actions/upload-artifact@v7
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
       with:
         name: ${{ steps.dist.outputs.dist-base }}
         path: artifacts/dist
         compression-level: 0
     - name: Cache pristine slides
-      uses: actions/cache@v5
+      uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
       with:
         key: pristine
         path: builddir/test/_slidedata/pristine
@@ -269,7 +269,7 @@ jobs:
             esac
         esac
     - name: Check out repo
-      uses: actions/checkout@v6
+      uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
     - name: Build
       run: |
         args="-Dtest=enabled"
@@ -307,7 +307,7 @@ jobs:
         trap "cat builddir/meson-logs/testlog.txt" EXIT
         meson test -C builddir openslide:
     - name: Cache pristine slides
-      uses: actions/cache@v5
+      uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5
       with:
         key: pristine
         path: builddir/test/_slidedata/pristine
@@ -344,9 +344,9 @@ jobs:
       packages: write
     steps:
       - name: Check out repo
-        uses: actions/checkout@v6
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
       - name: Install Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
         with:
           python-version: 3.14
       - name: Install dependencies
@@ -381,7 +381,7 @@ jobs:
     steps:
       - name: Find Windows builder container digest
         id: find-windows
-        uses: openslide/openslide-bin/.github/find-container-digest@main
+        uses: openslide/openslide-bin/.github/find-container-digest@84668048bec1a9c07e422309b685e520fd169b6b # main at 2026-07-07
         with:
           builder_image: windows
       - name: Calculate parameters
@@ -404,7 +404,7 @@ jobs:
   bin-build:
     name: Build (openslide-bin)
     needs: bin-setup
-    uses: openslide/openslide-bin/.github/workflows/build.yml@main
+    uses: openslide/openslide-bin/.github/workflows/build.yml@84668048bec1a9c07e422309b685e520fd169b6b # main at 2026-07-07
     with:
       openslide_repo: ${{ github.repository }}
       openslide_ref: ${{ github.ref }}
@@ -422,7 +422,7 @@ jobs:
       contents: write
     steps:
     - name: Download artifacts
-      uses: actions/download-artifact@v8
+      uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
       with:
         pattern: ${{ needs.primary.outputs.dist-base }}
         merge-multiple: true
