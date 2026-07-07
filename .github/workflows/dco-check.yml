@@ -10,4 +10,4 @@ permissions:
 jobs:
   check:
     name: Organization
-    uses: openslide/.github/.github/workflows/dco-check.yml@main
+    uses: openslide/.github/.github/workflows/dco-check.yml@69fb55fcf0f08a1974db9a2089506f5afaf64404 # main at 2026-07-07

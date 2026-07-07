@@ -12,6 +12,6 @@ permissions:
 jobs:
   comment:
     name: Organization
-    uses: openslide/.github/.github/workflows/dco-report.yml@main
+    uses: openslide/.github/.github/workflows/dco-report.yml@69fb55fcf0f08a1974db9a2089506f5afaf64404 # main at 2026-07-07
     secrets:
       OPENSLIDE_BOT_TOKEN: ${{ secrets.OPENSLIDE_BOT_TOKEN }}
